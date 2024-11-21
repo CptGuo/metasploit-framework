@@ -30,7 +30,7 @@ api_call:
   mov rdx, [rdx+0x20]         ; Get the first module from the InMemoryOrder module list
 next_mod:                     ;
   mov rsi, [rdx+0x50]         ; Get pointer to modules name (unicode string)
-  movzx rcx, word [rdx+0x4a]  ; Set rcx to the length we want to check
+  movzx rcx, word [rdx+0x48]  ; Set rcx to the length we want to check
   mov r9d, 0                  ; Set r9 to the IV of the hashed module name
 loop_modname:                 ;
   xor rax, rax                ; Clear rax

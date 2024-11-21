@@ -23,7 +23,7 @@ api_call:
   mov edx, [edx+0x14]        ; Get the first module from the InMemoryOrder module list
 next_mod:                    ;
   mov esi, [edx+0x28]        ; Get pointer to modules name (unicode string)
-  movzx ecx, word [edx+0x26] ; Set ECX to the length we want to check
+  movzx ecx, word [edx+0x24] ; Set ECX to the length we want to check
   mov edi, 0                 ; Set EDI to the IV of the hashed module name
 loop_modname:                ;
   xor eax, eax               ; Clear EAX
