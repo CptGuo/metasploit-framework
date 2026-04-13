@@ -1,11 +1,3 @@
-GIT
-  remote: https://github.com/dledda-r7/rex-text
-  revision: 924df44abb5118712920190d5c43e3a1f0e02483
-  branch: feat/block-api-iv
-  specs:
-    rex-text (0.2.61)
-      bigdecimal
-
 PATH
   remote: .
   specs:
@@ -700,7 +692,6 @@ DEPENDENCIES
   pry-byebug
   rake
   redcarpet
-  rex-text!
   rspec-rails
   rspec-rerun
   rubocop (= 1.75.7)
