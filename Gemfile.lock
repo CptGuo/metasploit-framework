@@ -44,7 +44,7 @@ PATH
       lru_redux
       metasm
       metasploit-concern
-      metasploit-credential
+      metasploit-credential (>= 6.0.21)
       metasploit-model
       metasploit-payloads (= 2.0.245)
       metasploit_data_models (>= 6.0.15)
@@ -331,7 +331,7 @@ GEM
       mutex_m
       railties (~> 7.0)
       zeitwerk
-    metasploit-credential (6.0.20)
+    metasploit-credential (6.0.21)
       bigdecimal
       csv
       drb
