@@ -4,6 +4,133 @@ This module attempts to read files from an authenticated directory traversal vul
 
 CVE-2024-46987 mistakenly indicates that versions 2.8.1 and 2.8.2 are also vulnerable, however this is not the case.
 
+## Setup
+
+See [Camaleon CMS](https://github.com/owen2345/camaleon-cms) documentation.
+
+The following describes how to setup Camaleon CMS version 2.8.0 on Ubuntu.
+
+### Requirements
+
+- Rails 6.1+
+- PostgreSQL, MySQL 5+ or SQlite
+- Ruby 3.0+
+- Imagemagick
+
+### Install Ruby
+
+guides.rubyonrails.org/install_ruby_on_rails.html
+
+~~~bash
+sudo apt install build-essential rustc libssl-dev libyaml-dev zlib1g-dev libgmp-dev git
+~~~
+
+### Install Mise
+
+~~~bash
+curl https://mise.run | sh
+echo "eval \"\$(~/.local/bin/mise activate)\"" >> ~/.bashrc
+source ~/.bashrc
+~~~
+
+### Install Ruby with Mise
+
+~~~bash
+$ mise use -g ruby@3.0
+
+$ ruby --version
+ruby 3.0.7p220 ...
+~~~
+
+### Install Imagemagick
+
+~~~bash
+sudo apt install --no-install-recommends imagemagick
+~~~
+
+### Install Postgresql
+
+~~~bash
+sudo apt install postgresql
+~~~
+
+### Install Rails
+
+~~~bash
+$ gem install rails -v 6.1
+
+$ rails --version
+Rails 6.1.7.10
+~~~
+
+#### concurrent-ruby Issue
+
+Downgrade concurrent-ruby to 1.3.4
+
+~~~bash
+$ gem list concurrent-ruby
+concurrent-ruby (1.3.6)
+
+$ gem install concurrent-ruby -v 1.3.4
+$ gem uninstall concurrent-ruby -v 1.3.6
+~~~
+
+### Create Rails Project
+
+Run `rails new camaleon_project`
+
+### Gemfile
+
+In your Gemfile do the following:
+
+Replace `gem 'spring'` with `gem 'spring', '4.2.1'`
+
+
+Delete this line to prevent [conflict](https://github.com/owen2345/camaleon-cms/issues/1111): `gem 'sass-rails', '>= 6'
+
+Put these lines at the bottom of your Gemfile:
+
+~~~
+gem 'camaleon_cms', '2.8.0'
+gem 'concurrent-ruby', '1.3.4'
+~~~
+
+### Install Bundle
+
+From the project directory run `bundle install`
+
+### Webpacker.yml Issue
+
+~~~bash
+wget -O camaleon_project/config/webpacker.yml https://raw.githubusercontent.com/rails/webpacker/master/lib/install/config/webpacker.yml
+~~~
+
+### Camaleon CMS Installation
+
+~~~bash
+rails generate camaleon_cms:install
+rake camaleon_cms:generate_migrations
+rake db:migrate
+~~~
+
+### Run Rails
+
+~~~bash
+bundle exec rails server -b 0.0.0.0
+~~~
+
+Navigate to http://{ip address}:3000 and enter test under the Name field.
+
+### Setup Server
+
+When prompted with the new installation page just enter "test" into the Name field and continue.
+
+#### Create Unprivileged User (Optional)
+
+Navigate to http://{ip address}:3000/admin, login with the default admin credentials "admin:admin123"
+
+Then navigate to "Users -> + Add User" and fill out the form.
+
 ## Verification Steps
 
 1. Do: `use auxiliary/gather/camaleon_traversal`
