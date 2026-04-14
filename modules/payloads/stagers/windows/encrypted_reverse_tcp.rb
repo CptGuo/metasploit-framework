@@ -4,7 +4,7 @@
 ##
 
 module MetasploitModule
-  CachedSize = 2992
+  CachedSize = 3104
 
   include Msf::Payload::Stager
   include Msf::Payload::Windows::EncryptedReverseTcp
