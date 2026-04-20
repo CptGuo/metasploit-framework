@@ -36,6 +36,22 @@ class Obj
       @platform_list_cache[platform_string] ||= build_platform_list(platform_string)
     end
 
+    # Deduplicate notes hash keys and string values via the frozen string table.
+    # Keys like "Stability", "SideEffects", "Reliability" repeat across thousands
+    # of modules; values like "crash-safe", "ioc-in-logs" repeat hundreds of times.
+    def dedup_notes(notes)
+      notes.each_with_object({}) do |(k, v), h|
+        h[-k] = case v
+                when Array
+                  v.map { |e| e.is_a?(String) ? -e : e }
+                when String
+                  -v
+                else
+                  v
+                end
+      end
+    end
+
     private
 
     def build_platform_list(platform_string)
@@ -295,7 +311,7 @@ class Obj
     @post_auth           = obj_hash['post_auth']
     @default_credential  = obj_hash['default_credential']
     notes                = obj_hash['notes']
-    @notes               = (notes.nil? || notes.empty?) ? EMPTY_HASH : notes
+    @notes               = (notes.nil? || notes.empty?) ? EMPTY_HASH : Obj.dedup_notes(notes)
     @needs_cleanup       = obj_hash['needs_cleanup']
     @session_types       = obj_hash['session_types']
     @autofilter_ports    = obj_hash['autofilter_ports']
