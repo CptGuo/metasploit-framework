@@ -33,7 +33,8 @@ module Payload::Windows::BlockApi_x64
   end
 
   def block_api_hash(mod, func, opts={})
-    Rex::Text.block_api_hash(mod, func, iv: block_api_iv(opts))
+    iv = opts.fetch(:block_api_iv) { block_api_iv }
+    Rex::Text.block_api_hash(mod, func, iv: iv)
   end
 
 end
