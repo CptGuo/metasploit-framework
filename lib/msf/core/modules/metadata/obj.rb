@@ -273,7 +273,7 @@ class Obj
 
   def path
     if @is_install_path
-      return ::File.join(Msf::Config.install_root, @path)
+      return @full_path ||= ::File.join(Msf::Config.install_root, @path)
     end
 
     @path
