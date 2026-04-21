@@ -17,12 +17,10 @@ module Auxiliary::MultipleTargetHosts
   end
 
   def check
+    return Exploit::CheckCode::Unsupported unless has_check?
+
     nmod = replicant
-    begin
-      nmod.check_host(datastore['RHOST'])
-    rescue NoMethodError
-      Exploit::CheckCode::Unsupported
-    end
+    nmod.check_host(datastore['RHOST'])
   end
 
 end
